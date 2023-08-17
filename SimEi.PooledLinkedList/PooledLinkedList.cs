@@ -39,10 +39,10 @@ namespace SimEi.Collections
 
         public int Count => _count;
 
-        public ItemHandle? First => GetItemOrDefault(_firstItemIndex);
-        public ItemHandle? Last => GetItemOrDefault(_lastItemIndex);
+        public NodeHandle? First => GetItemOrDefault(_firstItemIndex);
+        public NodeHandle? Last => GetItemOrDefault(_lastItemIndex);
 
-        public T this[ItemHandle item]
+        public T this[NodeHandle item]
         {
             get
             {
@@ -63,14 +63,14 @@ namespace SimEi.Collections
 
 
 
-        public ItemHandle? GetNext(ItemHandle item)
+        public NodeHandle? GetNext(NodeHandle item)
         {
             ValidateGeneration(item);
             int nextIdx = _nodes[item.Index].NextIndex;
             return GetItemOrDefault(nextIdx);
         }
 
-        public ItemHandle? GetPrev(ItemHandle item)
+        public NodeHandle? GetPrev(NodeHandle item)
         {
             ValidateGeneration(item);
             int prevIdx = _nodes[item.Index].PrevIndex;
@@ -78,17 +78,17 @@ namespace SimEi.Collections
         }
 
 
-        public ItemHandle AddFirst(T value)
+        public NodeHandle AddFirst(T value)
         {
             return AddBetween(NoLinkIndex, _firstItemIndex, value);
         }
 
-        public ItemHandle AddLast(T value)
+        public NodeHandle AddLast(T value)
         {
             return AddBetween(_lastItemIndex, NoLinkIndex, value);
         }
 
-        public ItemHandle AddBefore(ItemHandle item, T value)
+        public NodeHandle AddBefore(NodeHandle item, T value)
         {
             ValidateGeneration(item);
 
@@ -97,7 +97,7 @@ namespace SimEi.Collections
             return AddBetween(prevIdx, nextIdx, value);
         }
 
-        public ItemHandle AddAfter(ItemHandle item, T value)
+        public NodeHandle AddAfter(NodeHandle item, T value)
         {
             ValidateGeneration(item);
 
@@ -106,7 +106,7 @@ namespace SimEi.Collections
             return AddBetween(prevIdx, nextIdx, value);
         }
 
-        public void Remove(ItemHandle item)
+        public void Remove(NodeHandle item)
         {
             ValidateGeneration(item);
 
@@ -180,22 +180,22 @@ namespace SimEi.Collections
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void ValidateGeneration(ItemHandle item)
+        private void ValidateGeneration(NodeHandle item)
         {
             if (_nodes[item.Index].Generation != item.Generation)
                 throw new InvalidOperationException("tried to use handle after it has been removed from the list");
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private ItemHandle? GetItemOrDefault(int index)
+        private NodeHandle? GetItemOrDefault(int index)
         {
             if (index == NoLinkIndex)
                 return null;
-            return new ItemHandle(this, index, _nodes[index].Generation);
+            return new NodeHandle(this, index, _nodes[index].Generation);
         }
 
 
-        private ItemHandle AddBetween(int prevIdx, int nextIdx, T value)
+        private NodeHandle AddBetween(int prevIdx, int nextIdx, T value)
         {
             EnlargeIfFull();
 
@@ -205,7 +205,7 @@ namespace SimEi.Collections
 
             LinkNodes(prevIdx, idx);
             LinkNodes(idx, nextIdx);
-            return new ItemHandle(this, idx, _nodes[idx].Generation);
+            return new NodeHandle(this, idx, _nodes[idx].Generation);
         }
 
 
