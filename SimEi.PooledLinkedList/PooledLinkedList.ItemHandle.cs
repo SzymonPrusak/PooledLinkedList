@@ -18,7 +18,12 @@ namespace SimEi.Collections
             }
 
 
-            public T Value => _owner[this];
+            public T Value
+            {
+                get => _owner[this];
+                set => _owner[this] = value;
+            }
+
             public ItemHandle? Next => _owner.GetNext(this);
             public ItemHandle? Prev => _owner.GetPrev(this);
 
