@@ -68,6 +68,15 @@ namespace SimEi.PooledLinkedList.Tests
         }
 
         [TestMethod]
+        public void ShouldHandleSettingValues()
+        {
+            var list = new PooledLinkedList<int>();
+            list.AddFirst(5).Value = 10;
+
+            Assert.AreEqual(10, list.First.Value.Value);
+        }
+
+        [TestMethod]
         public void ShouldEnumerateItems()
         {
             var list = new PooledLinkedList<int>();
