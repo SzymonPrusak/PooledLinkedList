@@ -46,12 +46,12 @@ namespace SimEi.Collections
         {
             get
             {
-                Validate(item);
+                ValidateGeneration(item);
                 return _nodes[item.Index].Value;
             }
             set
             {
-                Validate(item);
+                ValidateGeneration(item);
                 _nodes[item.Index].Value = value;
             }
         }
@@ -65,14 +65,14 @@ namespace SimEi.Collections
 
         public ItemHandle? GetNext(ItemHandle item)
         {
-            Validate(item);
+            ValidateGeneration(item);
             int nextIdx = _nodes[item.Index].NextIndex;
             return GetItemOrDefault(nextIdx);
         }
 
         public ItemHandle? GetPrev(ItemHandle item)
         {
-            Validate(item);
+            ValidateGeneration(item);
             int prevIdx = _nodes[item.Index].PrevIndex;
             return GetItemOrDefault(prevIdx);
         }
@@ -90,7 +90,7 @@ namespace SimEi.Collections
 
         public ItemHandle AddBefore(ItemHandle item, T value)
         {
-            Validate(item);
+            ValidateGeneration(item);
 
             int prevIdx = _nodes[item.Index].PrevIndex;
             int nextIdx = item.Index;
@@ -99,7 +99,7 @@ namespace SimEi.Collections
 
         public ItemHandle AddAfter(ItemHandle item, T value)
         {
-            Validate(item);
+            ValidateGeneration(item);
 
             int prevIdx = item.Index;
             int nextIdx = _nodes[item.Index].NextIndex;
@@ -108,7 +108,8 @@ namespace SimEi.Collections
 
         public void Remove(ItemHandle item)
         {
-            Validate(item);
+            ValidateGeneration(item);
+
             int prevIdx = _nodes[item.Index].PrevIndex;
             int nextIdx = _nodes[item.Index].NextIndex;
             LinkNodes(prevIdx, nextIdx);
@@ -179,7 +180,7 @@ namespace SimEi.Collections
 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void Validate(ItemHandle item)
+        private void ValidateGeneration(ItemHandle item)
         {
             if (_nodes[item.Index].Generation != item.Generation)
                 throw new InvalidOperationException("tried to use handle after it has been removed from the list");

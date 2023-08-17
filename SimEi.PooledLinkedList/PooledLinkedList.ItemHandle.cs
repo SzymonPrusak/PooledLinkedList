@@ -6,11 +6,11 @@ namespace SimEi.Collections
     {
         public readonly struct ItemHandle : IEquatable<ItemHandle>
         {
-            public readonly int Index;
-            public readonly int Generation;
+            internal readonly int Index;
+            internal readonly int Generation;
             private readonly PooledLinkedList<T> _owner;
 
-            public ItemHandle(PooledLinkedList<T> owner, int index, int generation)
+            internal ItemHandle(PooledLinkedList<T> owner, int index, int generation)
             {
                 Index = index;
                 Generation = generation;
