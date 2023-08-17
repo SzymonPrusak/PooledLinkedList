@@ -1,8 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>SimEi.Collections</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.1</TargetFramework>
+		<RootNamespace>SimEi.Collections</RootNamespace>
+		<Version>1.0.0</Version>
+		<Authors>Szymon Prusak</Authors>
+		<Description>Low-allocation C# LinkedList.</Description>
+		<RepositoryUrl>https://github.com/SzymonPrusak/PooledLinkedList</RepositoryUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageTags>collection;list;linked list;pool;performance;unity</PackageTags>
+		<Copyright>Copyright (c) Szymon Prusak 2023</Copyright>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\LICENSE">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 </Project>
